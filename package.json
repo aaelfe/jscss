@@ -1,0 +1,23 @@
+{
+  "name": "jscss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "JSCSS.js",
+  "type": "module",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaelfe/jscss.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaelfe/jscss/issues"
+  },
+  "homepage": "https://github.com/aaelfe/jscss#readme"
+}
