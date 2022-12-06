@@ -4,17 +4,19 @@ import * as s from "./Stmt.js"
 
 export class Interpreter { //I learned today that JS doesn't support multiple inheritance without workarounds
     interpret(statements) {
+        let results=""
         try {
             statements.forEach((statement) => {
-                this.execute(statement)
+                results+=(this.execute(statement))
             })
         } catch(error) {
             console.log(error)
             //BETTER ERROR LATER
         }
+        return results
     }
     execute(stmt) {
-        stmt.accept(this)
+        return stmt.accept(this)
     }
     evaluate(expr) {
         return expr.accept(this)
@@ -37,11 +39,7 @@ export class Interpreter { //I learned today that JS doesn't support multiple in
         } else if(expr.operator.tokenType==TokenType.STAR) {
             return Number(left)*Number(right)
         } else if(expr.operator.tokenType==TokenType.PLUS) {
-            if(left instanceof Number && right instanceof Number) {
-                return Number(left)+Number(right)
-            } else if(left instanceof String && right instanceof String) {
-                return String(left)+String(right)
-            }
+            return left+right //ADD ERROR CHECK FOR STR PLUS NUM LATER
         } else if(expr.operator.tokenType==TokenType.GREATER) {
             return Number(left)>Number(right)
         } else if(expr.operator.tokenType==TokenType.GREATER_EQUAL) {
@@ -68,13 +66,15 @@ export class Interpreter { //I learned today that JS doesn't support multiple in
     }
 
     visitCSSStmt(stmt) {
-        console.log(stmt.css)
+        // console.log(stmt.css)
+        return stmt.css
     }
     visitExpressionStmt(stmt) {
-        this.evaluate(stmt.expression)
+        return this.evaluate(stmt.expression)
     }
     visitPrintStmt(stmt) {
         let value = this.evaluate(stmt.expression)
         console.log(value.toString())
+        return ""
     }
 }

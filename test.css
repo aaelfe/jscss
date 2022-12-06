@@ -1,1 +1,21 @@
-hey there
+body {
+    text-align: center;
+}
+    
+h1.double {
+    border-width: 4px;
+    border-style: double;
+    Border-color: green
+}
+    
+h1.double2 {
+    border-width: 2px;
+    border-style: double;
+    Border-color: green
+}
+
+h1.double3 {
+    border-width: 15px;
+    border-style: double;
+    Border-color: green
+}

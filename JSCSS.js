@@ -30,15 +30,20 @@ let run = async function(inputFile) {
 
     // console.log(ast.print(statements))
     let interpreter = new Interpreter()
-    interpreter.interpret(statements)
+    let output = interpreter.interpret(statements)
 
-    fs.writeFile('test.css', 'hey there', "ascii", (err) => {
+    let lastSlash = inputFile.lastIndexOf('/')
+    let outputFilename = inputFile.substring(lastSlash+1, inputFile.length-6) + ".css"
+
+    fs.writeFile(outputFilename, output, "ascii", (err) => {
         if (err) return console.log(err)
     })
 }
 
 if(argc!=3) {
     console.log("Usage: node JSCSS.js <filename>")
+} else if(!args[2].endsWith('.jscss')){
+    console.log("Input filename must end with .jscss")
 } else {
     run(args[2])
 }
