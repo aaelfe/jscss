@@ -1,5 +1,8 @@
 import { Scanner } from "./Scanner.js"
 import * as fs from "fs/promises"
+import { Parser } from "./Parser.js"
+import { AstPrinter } from "./AstPrinter.js"
+import { Interpreter } from "./Interpreter.js"
 
 let args=process.argv
 let argc=args.length
@@ -16,9 +19,22 @@ let run = async function(inputFile) {
         }
         return data
     })
+
     let scanner = new Scanner(input)
-    scanner.scanTokens()
-    console.log(scanner.tokens)
+    let tokens=scanner.scanTokens()
+    // console.log(tokens)
+
+    let parser = new Parser(tokens)
+    let statements=parser.parse()
+    // let ast = new AstPrinter()
+
+    // console.log(ast.print(statements))
+    let interpreter = new Interpreter()
+    interpreter.interpret(statements)
+
+    fs.writeFile('test.css', 'hey there', "ascii", (err) => {
+        if (err) return console.log(err)
+    })
 }
 
 if(argc!=3) {
