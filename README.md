@@ -157,5 +157,17 @@ There are tons of features of JavaScript that I have yet to implement, but the g
 
 ### Grammar
 
-This grammar is not all inclusive of all of CSS and JavaScript's grammar rules. My goal is to use descriptive nonterminal names to make it clear what each rule is changing, since JSCSS will be a superset of CSS and JavaScript.
+This grammar is not all inclusive of all of CSS and JavaScript's grammar rules. My goal is to use descriptive nonterminal names to make it clear what each rule is changing, since JSCSS will be a superset of CSS and JavaScript. I followed CSS terminology as specified [here](https://www.impressivewebs.com/css-terms-definitions/).
 
+- jscss -> block* | EOF
+- block -> css* | js*
+
+***js in this case indicates ANY JavaScript. At the top level, any JS is valid***
+
+- jscssStyleRule -> cssStyleRule | jsObject
+- jscssDeclaration -> cssDeclaration | jsKeyValuePair
+- jscssProperty -> cssProperty | jsString
+- jscssPropertyValue -> cssPropertyValue | jscssLiteral
+- jscssSelector -> cssSelector | jscssString
+
+***All of these instances of JSCSS types could be represented as literals or expressions that evaluate to that type***
