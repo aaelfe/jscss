@@ -50,8 +50,6 @@ body {
 }
 ```
 
-and would also print "howdy" to the console.
-
 ## CURRENT STATE OF IMPLEMENTATION
 
 For examples of JSCSS files that work for the current implementation, check `/currentExamples`. To see the grammar and details for what the finished implementation of this project would look like, it's in the next section.
@@ -99,7 +97,7 @@ Most critically, the current implementation does not parse any CSS, and doesn't 
 
 ## FINISHED IMPLEMENTATION
 
-In this section are the grammar/details of what this project would look like completely finished.
+In this section are the grammar/details of what this project would look like completely finished. To see examples of the capabilities of a finished version see `/futureExamples`.
 
 One big change is that "$" will not be used to indicate the start and end of a code block, since it has a purpose in JavaScript for template literals. There will likely be some other indicator, such as {}, to indicate what is JS and what's not. The final project will parse the CSS blocks within the input file, and will be able to verify if a piece of JavaScript is in an appropriate location or not. As is shown in the grammar below, JS that evaluates to a valid property will be allowed in place of a property, JS that evaluates to a valid style rule will be allowed in place of a style rule, etc.
 
