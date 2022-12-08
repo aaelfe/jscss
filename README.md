@@ -8,7 +8,7 @@ The goal of JSCSS is to allow users to create CSS files with lots of speed and f
 
 ## SETUP
 
-Install Node.js [here](https://nodejs.org/en/download/) or via command line.
+Install Node.js [here](https://nodejs.org/en/download/) or via command line. I found the below commands on the Node.js website, but haven't verified whether they work or not.
 
   Bash: 
   ```
