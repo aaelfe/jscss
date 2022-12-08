@@ -25,7 +25,7 @@ Other JavaScript runtimes should be able to run the compiler but I recommend Nod
 
 ## USAGE
 
-The compiler can be run with `node jscss.js <input-filename>`.
+The compiler can be run with `node jscss.js <input-filename>` in the `/src` directory.
 The input file must have the extension `.jscss`, and the compiler will create a CSS output file in the root directory with the same name as the input file. 
 
 In an input file, `$` represents the start and end of a code block. Below is a sample of what a `.jscss` file could look like. See the `currentExamples` directory for more.

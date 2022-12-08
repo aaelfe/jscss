@@ -22,7 +22,7 @@ let run = async function(inputFile) {
 
     let scanner = new Scanner(input)
     let tokens=scanner.scanTokens()
-    console.log(tokens)
+    // console.log(tokens)
 
     let parser = new Parser(tokens)
     let statements=parser.parse()
