@@ -4,7 +4,7 @@ Compiler tool for creating CSS files by incorporating inline Javascript.
 
 ## JUSTIFICATION
 
-The goal of JSCSS is to allow users to create CSS files with lots of speed and flexibility. It is similar to Sass in this way. However, JSCSS uses JavaScript syntax for all of it's extended functionality beyond vanilla CSS. In a finished state, it would be able to utilize both CSS and JavaScript code/libraries.
+The goal of JSCSS is to allow users to create CSS files with lots of speed and flexibility. It is similar to Sass in this way. However, JSCSS uses JavaScript syntax for all of it's extended functionality beyond vanilla CSS. In a finished state, it would be able to utilize both CSS and JavaScript code/libraries. The tool is written in JavaScript. Since it's a web development tool, I think it makes sense to create the compiler in a language that can run on a browser, in case it becomes relevant to compile new JSCSS files directly in the browser. JavaScript was also chosen as the inline programming language for JSCSS because it is a language web developers are already familiar with, which makes it a lot easier to pick up JSCSS as a new technology.
 
 ## SETUP
 
