@@ -1,0 +1,41 @@
+let _vals = [
+    _h1: {
+        _val: 10,
+        _unit: "px"
+    }
+    _h2: {
+        _val: 20,
+        _unit: "px"
+    }
+    _h2: {
+        _val: 30,
+        _unit: "px"
+    }
+]
+
+let _unitSetter = (unit) => _vals.forEach((val) => { //sets unit field of each object in vals
+    val._unit=unit
+})
+
+_unitSetter("em")
+
+h1.double {
+    {_val = _vals[0]}
+    border-width: _val._val+_val._unit;
+    border-style: double;
+    Border-color: green
+}
+
+h2.double {
+    {_val = _vals[1]}
+    border-width: _val._val+_val._unit;
+    border-style: double;
+    Border-color: green
+}
+
+h3.double {
+    {_val = _vals[2]}
+    border-width: _val._val+_val._unit;
+    border-style: double;
+    Border-color: green
+}

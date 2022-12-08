@@ -1,0 +1,3 @@
+h1 { /*this element would compile to a random out out of the above list each time*/
+  color: #FF0000
+}

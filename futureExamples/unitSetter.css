@@ -1,0 +1,17 @@
+h1.double {
+    border-width: 10em;
+    border-style: double;
+    Border-color: green
+}
+
+h2.double {
+    border-width: 20em;
+    border-style: double;
+    Border-color: green
+}
+
+h3.double {
+    border-width: 30em;
+    border-style: double;
+    Border-color: green
+}

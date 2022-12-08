@@ -1,0 +1,10 @@
+import objectCutter from './objectCutter.js' //Import another js file
+
+let _bodyObj = {
+    font-family: sans-serif,
+    color: #555,
+    font-size: 14px,
+}
+let _body = objectCutter(2, _bodyObj) //objectCutter returns the object with only the first 2 properties
+
+_body //in this context a standalone JS object would be evaluated/compiled as a style rule

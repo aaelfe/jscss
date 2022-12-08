@@ -1,0 +1,7 @@
+let _htmlElements = ["p", "a", "img", "h1", "h2", "h3"]
+let _red = true
+let _elem = _htmlElements[Math.floor(Math.random() * _htmlElements.length)]
+
+_elem {
+  color: {_red ? #FF0000 : #00FFFF}
+}
