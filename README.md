@@ -1,4 +1,6 @@
-# jscss
+# JSCSS
+
+Please view this project on the [GitHub repository for JSCSS](https://github.com/aaelfe/jscss), so that the markdown for the README displays correctly.
 
 Compiler tool for creating CSS files by incorporating inline Javascript.
 
