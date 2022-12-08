@@ -108,8 +108,8 @@ Most critically, the current implementation does not parse any CSS, and doesn't 
 - block -> "{" declaration* "}"
 - expression -> assignment
 - assignment -> (IDENTIFIER "=" assignment) | logicalOr
-- logicalOr -> logicalAnd ("||" logicalAnd)*
-- logicalAnd -> equality ("&&" equality)*
+- logicalOr -> logicalAnd ("or" logicalAnd)*
+- logicalAnd -> equality ("and" equality)*
 - equality -> comparison (equalityOperator comparison)*
 - equalityOperator -> "!=" | "=="
 - comparison -> term (comparisonOperator term)*
