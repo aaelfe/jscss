@@ -1,0 +1,15 @@
+a:hover {
+    color: #aaaaaa;
+}
+
+$let deviceToSimulate="mobile"
+let screenWidth
+if(deviceToSimulate=="mobile") {
+    screenWidth="400px"
+} else {
+    screenWidth="100%"
+}$
+
+body {
+    width: $screenWidth$
+}

@@ -1,0 +1,10 @@
+$let a="3"; let unit="px";
+if(!(true and false) or false) {
+    a=a+"0"
+}$
+
+h1.double {
+    border-width: $a+unit$;
+    border-style: double;
+    Border-color: green
+}

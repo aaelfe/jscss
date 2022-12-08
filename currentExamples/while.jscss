@@ -1,0 +1,11 @@
+$let colorSetter=2;
+let color=111;
+while(colorSetter>=0) {
+    color=color+111;
+    colorSetter=colorSetter-1;
+}$
+
+body {
+  font-family: Arial, sans-serif; /* one declaration */
+  color: #$color$; /* another declaration */
+}
