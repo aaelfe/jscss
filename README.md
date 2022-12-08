@@ -1,14 +1,16 @@
-# jscss
+# JSCSS
+
+Please view this project on the [GitHub repository for JSCSS](https://github.com/aaelfe/jscss), so that the markdown for the README displays correctly.
 
 Compiler tool for creating CSS files by incorporating inline Javascript.
 
 ## JUSTIFICATION
 
-The goal of JSCSS is to allow users to create CSS files with lots of speed and flexibility. It is similar to Sass in this way. However, JSCSS uses JavaScript syntax for all of it's extended functionality beyond vanilla CSS. In a finished state, it would be able to utilize both CSS and JavaScript code/libraries.
+The goal of JSCSS is to allow users to create CSS files with lots of speed and flexibility. It is similar to Sass in this way. However, JSCSS uses JavaScript syntax for all of it's extended functionality beyond vanilla CSS. In a finished state, it would be able to utilize both CSS and JavaScript code/libraries. The tool is written in JavaScript. Since it's a web development tool, I think it makes sense to create the compiler in a language that can run on a browser, in case it becomes relevant to compile new JSCSS files directly in the browser. JavaScript was also chosen as the inline programming language for JSCSS because it is a language web developers are already familiar with, which makes it a lot easier to pick up JSCSS as a new technology.
 
 ## SETUP
 
-Install Node.js [here](https://nodejs.org/en/download/) or via command line.
+Install Node.js [here](https://nodejs.org/en/download/) or via command line. I found the below commands on the Node.js website, but haven't verified whether they work or not.
 
   Bash: 
   ```
@@ -26,28 +28,18 @@ Other JavaScript runtimes should be able to run the compiler but I recommend Nod
 The compiler can be run with `node jscss.js <input-filename>`.
 The input file must have the extension `.jscss`, and the compiler will create a CSS output file in the root directory with the same name as the input file. 
 
-In an input file, `$` represents the start and end of a code block. Below is a sample of what a `.jscss` file could look like. See the examples directory for more.
+In an input file, `$` represents the start and end of a code block. Below is a sample of what a `.jscss` file could look like. See the `currentExamples` directory for more.
 ```
-body {
-    text-align: center;
-}
-    
-h1.double {
-    border-width: $10*20/50$px;
-    border-style: double;
-    Border-color: green
-}
-    
-h1.double2 {
-    border-width: $1+1$px;
-    border-style: double;
-    Border-color: green
-}
+$let colorSetter=2;
+let color=111;
+while(colorSetter>=0) {
+    color=color+111;
+    colorSetter=colorSetter-1;
+}$
 
-h1.double3 {
-    border-width: 15px;
-    border-style: double;
-    Border-color: green
+body {
+  font-family: Arial, sans-serif; /* one declaration */
+  color: #$color$; /* another declaration */
 }
 ```
 
@@ -55,33 +47,16 @@ would compile to:
 
 ```
 body {
-    text-align: center;
-}
-    
-h1.double {
-    border-width: 4px;
-    border-style: double;
-    Border-color: green
-}
-    
-h1.double2 {
-    border-width: 2px;
-    border-style: double;
-    Border-color: green
-}
-$log "howdy"$
-h1.double3 {
-    border-width: 15px;
-    border-style: double;
-    Border-color: green
+  font-family: Arial, sans-serif; /* one declaration */
+  color: #444; /* another declaration */
 }
 ```
-
-and would also print "howdy" to the console.
 
 ## CURRENT STATE OF IMPLEMENTATION
 
 For examples of JSCSS files that work for the current implementation, check `/currentExamples`. To see the grammar and details for what the finished implementation of this project would look like, it's in the next section.
+
+Currently, syntax/features supported within code blocks include logging to console, if/else statements, variables, variable reassignment, while loops, binary math operators, comparison operators, logical and/or operators, unary negation operators, and literals of types number, string, and boolean. 
 
 ### Quirks
 
@@ -108,8 +83,8 @@ Most critically, the current implementation does not parse any CSS, and doesn't 
 - block -> "{" declaration* "}"
 - expression -> assignment
 - assignment -> (IDENTIFIER "=" assignment) | logicalOr
-- logicalOr -> logicalAnd ("||" logicalAnd)*
-- logicalAnd -> equality ("&&" equality)*
+- logicalOr -> logicalAnd ("or" logicalAnd)*
+- logicalAnd -> equality ("and" equality)*
 - equality -> comparison (equalityOperator comparison)*
 - equalityOperator -> "!=" | "=="
 - comparison -> term (comparisonOperator term)*
@@ -124,9 +99,9 @@ Most critically, the current implementation does not parse any CSS, and doesn't 
 
 ## FINISHED IMPLEMENTATION
 
-In this section are the grammar/details of what this project would look like completely finished.
+In this section are the grammar/details of what this project would look like completely finished. To see examples of the capabilities of a finished version see `/futureExamples`.
 
-One big change is that "$" will not be used to indicate the start and end of a code block, since it has a purpose in JavaScript for template literals. There may be some other indicator, such as {}, to indicate what is JS and what's not. The final project will parse the CSS blocks within the input file, and will be able to verify if a piece of JavaScript is in an appropriate location or not. As is shown in the grammar below, JS that evaluates to a valid property will be allowed in place of a property, JS that evaluates to a valid style rule will be allowed in place of a style rule, etc.
+One big change is that "$" will not be used to indicate the start and end of a code block, since it has a purpose in JavaScript for template literals. There will likely be some other indicator, such as {}, to indicate what is JS and what's not. The final project will parse the CSS blocks within the input file, and will be able to verify if a piece of JavaScript is in an appropriate location or not. As is shown in the grammar below, JS that evaluates to a valid property will be allowed in place of a property, JS that evaluates to a valid style rule will be allowed in place of a style rule, etc.
 
 There are tons of features of JavaScript that I have yet to implement, but the goal for the final project is to allow ALL JavaScript syntax within code blocks (in their appropriate locations within a file). Here I am going to cover some features that I think would be most useful in JSCSS. First off, the ternary operator. It has a very short syntax (expr ? then return x : else return y) for what would otherwise be an if-else statement nested within a function. Short syntax is the name of the game because long blocks of inline code can make the CSS it's wrapped in hard to read. It's for this same reason that arrow functions, template literals, and JS's huge list of string methods would be especially useful tools in JSCSS.
 
