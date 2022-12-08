@@ -1,12 +1,16 @@
 import { TokenType } from "./TokenType.js"
 import * as e from "./Expr.js"
 import * as s from "./Stmt.js"
+import * as environment from "./Environment.js"
+
+let env = new environment.Environment()
 
 export class Interpreter { //I learned today that JS doesn't support multiple inheritance without workarounds
     interpret(statements) {
         let results=""
         try {
             statements.forEach((statement) => {
+                // console.log("statement: ", statement)
                 results+=(this.execute(statement))
             })
         } catch(error) {
@@ -17,6 +21,14 @@ export class Interpreter { //I learned today that JS doesn't support multiple in
     }
     execute(stmt) {
         return stmt.accept(this)
+    }
+    executeBlock(statements, environmentParam) {
+        let previous=env
+        env=environmentParam
+        statements.forEach((statement) => {
+            this.execute(statement)
+        })
+        env=previous
     }
     evaluate(expr) {
         return expr.accept(this)
@@ -64,6 +76,23 @@ export class Interpreter { //I learned today that JS doesn't support multiple in
         }
         return null
     }
+    visitVariableExpr(expr) {
+        return env.get(expr.name)
+    }
+    visitAssignExpr(expr) {
+        let value=this.evaluate(expr.value)
+        env.assign(expr.name, value)
+        return value
+    }
+    visitLogicalExpr(expr) {
+        let left=this.evaluate(expr.left)
+        if(expr.operator.tokenType==TokenType.OR) {
+            if(left) return left
+        } else {
+            if(!left) return left
+        }
+        return this.evaluate(expr.right)
+    }
 
     visitCSSStmt(stmt) {
         // console.log(stmt.css)
@@ -75,6 +104,33 @@ export class Interpreter { //I learned today that JS doesn't support multiple in
     visitPrintStmt(stmt) {
         let value = this.evaluate(stmt.expression)
         console.log(value.toString())
+        return ""
+    }
+    visitIfStmt(stmt) {
+        if(this.evaluate(stmt.condition)) {
+            this.execute(stmt.thenBranch)
+        } else if(stmt.elseBranch) {
+            this.execute(stmt.elseBranch)
+        }
+        return ""
+    }
+    visitLetStmt(stmt) {
+        let value=null
+        if(stmt.initializer) {
+            value=this.evaluate(stmt.initializer)
+        }
+        env.define(stmt.name.lexeme, value)
+        return ""
+    }
+    visitWhileStmt(stmt) {
+        // console.log('in while')
+        while(this.evaluate(stmt.condition)) {
+            this.execute(stmt.body)
+        }
+        return ""
+    }
+    visitBlockStmt(stmt) {
+        this.executeBlock(stmt.statements, new environment.Environment(env))
         return ""
     }
 }

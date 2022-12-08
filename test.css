@@ -1,4 +1,6 @@
+
 body {
+    
     text-align: center;
 }
     
@@ -9,13 +11,13 @@ h1.double {
 }
     
 h1.double2 {
-    border-width: 2px;
+    border-width: 5px;
     border-style: double;
     Border-color: green
 }
 
 h1.double3 {
-    border-width: 15px;
+    border-width: 30px;
     border-style: double;
     Border-color: green
 }

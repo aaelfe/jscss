@@ -92,59 +92,34 @@ Most critically, the current implementation does not parse any CSS, and doesn't 
 ### Grammar
 
 - jscss -> chunk* EOF
-
 - chunk -> cssBlock* | codeBlock*
 
 ***Note that a ccsBlock can include any CSS syntax with the exception of any use of "$". A cssBlock also does not have to be standalone valid CSS, since codeBlocks can exist within CSS classes, properties, etc., splitting what would be a valid block of CSS standalone.***
 
 - codeBlock -> "$" declaration* "$"
-
 - declaration -> letDecl | statement
-
 - letDecl -> "let" IDENTIFIER ("=" expression)? endOfStatement
-
 - statement -> expressionStatement | ifStatement | logStatement | whileStatement | block
-
 - endOfStatement -> (";") | NEWLINE
-
 - expressionStatement -> expression endOfStatement
-
 - ifStatement -> "if" "(" expression ")" statement ("else" statement)?
-
 - logStatement -> "log" expression endOfStatement
-
 - whileStatement -> "while" "(" expression ")" statement
-
 - block -> "{" declaration* "}"
-
 - expression -> assignment
-
 - assignment -> (IDENTIFIER "=" assignment) | logicalOr
-
 - logicalOr -> logicalAnd ("||" logicalAnd)*
-
 - logicalAnd -> equality ("&&" equality)*
-
 - equality -> comparison (equalityOperator comparison)*
-
 - equalityOperator -> "!=" | "=="
-
 - comparison -> term (comparisonOperator term)*
-
 - comparisonOperator -> "<" | ">" | "<=" | ">="
-
 - term -> factor (termOperator factor)*
-
 - termOperator -> "-" | "+"
-
 - factor -> unary (factorOperator unary)*
-
 - factorOperator -> "/" | "*"
-
 - unary -> unaryOperator unary | primary
-
 - unaryOperator -> "!" | "-"
-
 - primary -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "null" | "(" expression ")"
 
 ## FINISHED IMPLEMENTATION

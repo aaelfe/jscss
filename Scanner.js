@@ -36,7 +36,7 @@ export class Scanner {
     }
     scanCSS = function() {
         this.start=this.current
-        let character=this.advance()
+        // let character=this.advance()
         
         while(this.peek()!="$" && !this.isAtEnd()) {
             this.advance()

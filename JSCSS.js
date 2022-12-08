@@ -22,7 +22,7 @@ let run = async function(inputFile) {
 
     let scanner = new Scanner(input)
     let tokens=scanner.scanTokens()
-    // console.log(tokens)
+    console.log(tokens)
 
     let parser = new Parser(tokens)
     let statements=parser.parse()
@@ -31,6 +31,7 @@ let run = async function(inputFile) {
     // console.log(ast.print(statements))
     let interpreter = new Interpreter()
     let output = interpreter.interpret(statements)
+    // console.log(output)
 
     let lastSlash = inputFile.lastIndexOf('/')
     let outputFilename = inputFile.substring(lastSlash+1, inputFile.length-6) + ".css"
