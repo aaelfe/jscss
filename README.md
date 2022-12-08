@@ -81,7 +81,7 @@ and would also print "howdy" to the console.
 
 ## CURRENT STATE OF IMPLEMENTATION
 
-To see the grammar and details for what the finished implementation of this project would look like, it's in the next section.
+For examples of JSCSS files that work for the current implementation, check `/currentExamples`. To see the grammar and details for what the finished implementation of this project would look like, it's in the next section.
 
 ### Quirks
 
@@ -91,46 +91,71 @@ Most critically, the current implementation does not parse any CSS, and doesn't 
 
 ### Grammar
 
-jscss -> chunk* EOF
+- jscss -> chunk* EOF
 
-chunk -> cssBlock* | codeBlock*
+- chunk -> cssBlock* | codeBlock*
 
 ***Note that a ccsBlock can include any CSS syntax with the exception of any use of "$". A cssBlock also does not have to be standalone valid CSS, since codeBlocks can exist within CSS classes, properties, etc., splitting what would be a valid block of CSS standalone.***
 
-codeBlock -> "$" declaration* "$"
+- codeBlock -> "$" declaration* "$"
 
-declaration -> letDecl | statement
+- declaration -> letDecl | statement
 
-letDecl -> "let" IDENTIFIER ("=" expression)? endOfStatement
+- letDecl -> "let" IDENTIFIER ("=" expression)? endOfStatement
 
-statement -> expressionStatement | ifStatement | logStatement | whileStatement | block
+- statement -> expressionStatement | ifStatement | logStatement | whileStatement | block
 
-endOfStatement -> (";") | NEWLINE
+- endOfStatement -> (";") | NEWLINE
 
-expressionStatement -> expression endOfStatement
+- expressionStatement -> expression endOfStatement
 
-ifStatement -> "if" "(" expression ")" statement ("else" statement)?
+- ifStatement -> "if" "(" expression ")" statement ("else" statement)?
 
-logStatement -> "log" expression endOfStatement
+- logStatement -> "log" expression endOfStatement
 
-whileStatement -> "while" "(" expression ")" statement
+- whileStatement -> "while" "(" expression ")" statement
 
-block -> "{" declaration* "}"
+- block -> "{" declaration* "}"
 
-expression -> assignment
+- expression -> assignment
 
-assignment -> (IDENTIFIER "=" assignment) | logicalOr
+- assignment -> (IDENTIFIER "=" assignment) | logicalOr
 
-logicalOr -> logicalAnd ("||" logicalAnd)*
+- logicalOr -> logicalAnd ("||" logicalAnd)*
 
-logicalAnd -> equality ("&&" equality)*
+- logicalAnd -> equality ("&&" equality)*
 
-equality -> comparison (equalityOperator comparison)*
+- equality -> comparison (equalityOperator comparison)*
 
-equalityOperator -> "!=" | "=="
+- equalityOperator -> "!=" | "=="
 
-comparison -> term (comparisonOperator term)*
+- comparison -> term (comparisonOperator term)*
 
-comparisonOperator -> "<" | ">" | "<=" | ">="
+- comparisonOperator -> "<" | ">" | "<=" | ">="
 
-term
+- term -> factor (termOperator factor)*
+
+- termOperator -> "-" | "+"
+
+- factor -> unary (factorOperator unary)*
+
+- factorOperator -> "/" | "*"
+
+- unary -> unaryOperator unary | primary
+
+- unaryOperator -> "!" | "-"
+
+- primary -> IDENTIFIER | NUMBER | STRING | "true" | "false" | "null" | "(" expression ")"
+
+## FINISHED IMPLEMENTATION
+
+In this section are the grammar/details of what this project would look like completely finished.
+
+One big change is that "$" will not be used to indicate the start and end of a code block, since it has a purpose in JavaScript for template literals. There may be some other indicator, such as {}, to indicate what is JS and what's not. The final project will parse the CSS blocks within the input file, and will be able to verify if a piece of JavaScript is in an appropriate location or not. As is shown in the grammar below, JS that evaluates to a valid property will be allowed in place of a property, JS that evaluates to a valid style rule will be allowed in place of a style rule, etc.
+
+There are tons of features of JavaScript that I have yet to implement, but the goal for the final project is to allow ALL JavaScript syntax within code blocks (in their appropriate locations within a file). Here I am going to cover some features that I think would be most useful in JSCSS. First off, the ternary operator. It has a very short syntax (expr ? then return x : else return y) for what would otherwise be an if-else statement nested within a function. Short syntax is the name of the game because long blocks of inline code can make the CSS it's wrapped in hard to read. It's for this same reason that arrow functions, template literals, and JS's huge list of string methods would be especially useful tools in JSCSS.
+
+### Grammar
+
+This grammar is not all inclusive of all of CSS and JavaScript's grammar rules. My goal is to use descriptive nonterminal names to make it clear what each rule is changing, since JSCSS will be a superset of CSS and JavaScript.
+
