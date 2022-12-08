@@ -26,28 +26,18 @@ Other JavaScript runtimes should be able to run the compiler but I recommend Nod
 The compiler can be run with `node jscss.js <input-filename>`.
 The input file must have the extension `.jscss`, and the compiler will create a CSS output file in the root directory with the same name as the input file. 
 
-In an input file, `$` represents the start and end of a code block. Below is a sample of what a `.jscss` file could look like. See the examples directory for more.
+In an input file, `$` represents the start and end of a code block. Below is a sample of what a `.jscss` file could look like. See the `currentExamples` directory for more.
 ```
-body {
-    text-align: center;
-}
-    
-h1.double {
-    border-width: $10*20/50$px;
-    border-style: double;
-    Border-color: green
-}
-    
-h1.double2 {
-    border-width: $1+1$px;
-    border-style: double;
-    Border-color: green
-}
+$let colorSetter=2;
+let color=111;
+while(colorSetter>=0) {
+    color=color+111;
+    colorSetter=colorSetter-1;
+}$
 
-h1.double3 {
-    border-width: 15px;
-    border-style: double;
-    Border-color: green
+body {
+  font-family: Arial, sans-serif; /* one declaration */
+  color: #$color$; /* another declaration */
 }
 ```
 
@@ -55,25 +45,8 @@ would compile to:
 
 ```
 body {
-    text-align: center;
-}
-    
-h1.double {
-    border-width: 4px;
-    border-style: double;
-    Border-color: green
-}
-    
-h1.double2 {
-    border-width: 2px;
-    border-style: double;
-    Border-color: green
-}
-$log "howdy"$
-h1.double3 {
-    border-width: 15px;
-    border-style: double;
-    Border-color: green
+  font-family: Arial, sans-serif; /* one declaration */
+  color: #444; /* another declaration */
 }
 ```
 
@@ -82,6 +55,8 @@ and would also print "howdy" to the console.
 ## CURRENT STATE OF IMPLEMENTATION
 
 For examples of JSCSS files that work for the current implementation, check `/currentExamples`. To see the grammar and details for what the finished implementation of this project would look like, it's in the next section.
+
+Currently, syntax/features supported within code blocks include logging to console, if/else statements, variables, variable reassignment, while loops, binary math operators, comparison operators, logical and/or operators, unary negation operators, and literals of types number, string, and boolean. 
 
 ### Quirks
 
@@ -126,7 +101,7 @@ Most critically, the current implementation does not parse any CSS, and doesn't 
 
 In this section are the grammar/details of what this project would look like completely finished.
 
-One big change is that "$" will not be used to indicate the start and end of a code block, since it has a purpose in JavaScript for template literals. There may be some other indicator, such as {}, to indicate what is JS and what's not. The final project will parse the CSS blocks within the input file, and will be able to verify if a piece of JavaScript is in an appropriate location or not. As is shown in the grammar below, JS that evaluates to a valid property will be allowed in place of a property, JS that evaluates to a valid style rule will be allowed in place of a style rule, etc.
+One big change is that "$" will not be used to indicate the start and end of a code block, since it has a purpose in JavaScript for template literals. There will likely be some other indicator, such as {}, to indicate what is JS and what's not. The final project will parse the CSS blocks within the input file, and will be able to verify if a piece of JavaScript is in an appropriate location or not. As is shown in the grammar below, JS that evaluates to a valid property will be allowed in place of a property, JS that evaluates to a valid style rule will be allowed in place of a style rule, etc.
 
 There are tons of features of JavaScript that I have yet to implement, but the goal for the final project is to allow ALL JavaScript syntax within code blocks (in their appropriate locations within a file). Here I am going to cover some features that I think would be most useful in JSCSS. First off, the ternary operator. It has a very short syntax (expr ? then return x : else return y) for what would otherwise be an if-else statement nested within a function. Short syntax is the name of the game because long blocks of inline code can make the CSS it's wrapped in hard to read. It's for this same reason that arrow functions, template literals, and JS's huge list of string methods would be especially useful tools in JSCSS.
 
